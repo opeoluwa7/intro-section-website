@@ -1,0 +1,17 @@
+---
+
+
+interface Props {
+    text: string;
+    src: any;
+    alt: string;
+}
+
+const { text, src, alt } = Astro.props;
+---
+
+
+<div class="iconLinks flex flex-row items-center gap-4 !mb-4 min-w-[160px]">
+    <img class="w-[1rem] h-[1rem] cursor-pointer" src={src} alt={alt} />
+    <a href="#">{text}</a>
+</div>

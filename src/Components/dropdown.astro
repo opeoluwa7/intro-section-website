@@ -1,0 +1,25 @@
+---
+import IconLink from "../Components/iconLinks.astro";
+
+interface Props {
+    btnText: string;
+    src1: any;
+    src2: any;
+    alt: string;
+    imgClass1: string;
+    imgClass2: string
+}
+
+const { btnText, src1, src2, alt, imgClass1, imgClass2 } = Astro.props;
+---
+
+<div id="dropdown" class="dropdown relative">
+    <button class="drop flex items-center gap-2 cursor-pointer">
+        {btnText}
+        <img class={imgClass1} src={src1} alt={alt} />
+        <img class={imgClass2} src={src2} alt={alt} />
+    </button>
+    <div id="content" class="flex flex-col md:absolute left-0 top-[100%] w-[10rem] !p-4 hidden dropdown-content bg-white rounded-2xl">
+        <slot />
+    </div>
+</div>

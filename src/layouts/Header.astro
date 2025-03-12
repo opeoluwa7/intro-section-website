@@ -1,0 +1,120 @@
+---
+import IconButton from "../Components/iconButton.astro";
+import menu from "../assets/icon-menu.svg";
+import closeIcon from "../assets/icon-close-menu.svg";
+import logo from "../assets/logo.svg";
+import NavList from "../Components/navList.astro";
+import Button from "../Components/button.astro";
+---
+
+<header class="w-full flex items-center justify-between md:justify-start gap-20 !pt-8">
+    <div  class="flex items-center justify-center">
+        <img loading="lazy" class="img !w-[6rem] block" src={logo.src} alt="logo" />
+    </div>
+
+    <div class="navbar flex items-center justify-between md:w-full">
+        <IconButton
+            className="w-[2rem] h-[1.1rem] cursor-pointer "
+            id="menu"
+            src={menu.src}
+            alt="menu"
+        />
+
+        <nav id="nav">
+            <NavList className="flex items-center gap-4" />
+        </nav>
+
+        <div id="actions" class="flex flex-row mr-auto">
+            <Button
+                className="btn !font-medium w-full !bg-transparent"
+                text="Login"
+            />
+            <Button
+                className="btn !font-medium w-full border border-gray-500 !bg-transparent h-[3rem] !px-8 hover:border-black"
+                text="Register"
+            />
+        </div>
+
+        <aside
+            id="sidebar"
+            class="hidden w-[16rem] min-h-screen flex flex-col items-end gap-8 fixed top-0 right-0 bg-white z-50 !p-4"
+        >
+            <IconButton
+                id="closeIcon"
+                className="w-[2rem] h-[2rem] cursor-pointer "
+                src={closeIcon.src}
+                alt=""
+            />
+            <NavList className="flex flex-col items-start w-full cursor-pointer gap-4" />
+
+            <div class="flex flex-col mr-auto w-full gap-4">
+                <Button
+                    className="btn !font-medium w-full !bg-transparent"
+                    text="Login"
+                />
+                <Button
+                    className="btn !font-medium w-full border border-gray-500 hover:border-black !bg-transparent h-[3rem]"
+                    text="Register"
+                />
+            </div>
+
+        </aside>
+
+        <div id="overlay" class="fixed hidden min-h-screen top-0 left-0 right-0 bottom-0 bg-black/60 w-full h-full z-40 "></div>
+    </div>
+</header>
+
+<script>
+    const nav = document.getElementById("nav");
+    const sidebar = document.getElementById("sidebar");
+    const menu = document.getElementById("menu");
+    const closeIcon = document.getElementById("closeIcon");
+    const overlay = document.getElementById("overlay");
+    const mediaQuery = window.matchMedia("(min-width: 48rem)");
+    const actions = document.getElementById("actions");
+
+    const handleChange = () => {
+        if (nav && menu && actions) {
+            if (!mediaQuery.matches) {
+                menu.style.display = "block";
+                nav.style.display = "none";
+                actions.style.display = 'none'
+            } else {
+                menu.style.display = "none";
+                nav.style.display = "flex";
+                 actions.style.display = 'flex'
+            }
+        }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    handleChange();
+
+    function handleOpen() {
+        if (menu && sidebar && overlay) {
+            menu.style.display = "none";
+            sidebar.classList.remove("hidden");
+            sidebar.classList.add("flex");
+            overlay.classList.remove("hidden");
+        }
+    }
+
+    function handleClose() {
+        if (menu && sidebar && overlay) {
+            menu.style.display = "block";
+            sidebar.classList.add("hidden");
+            sidebar.classList.remove("flex");
+            overlay.classList.add("hidden");
+        }
+    }
+
+    if (menu) {
+        menu.addEventListener("click", handleOpen);
+    }
+
+    //close sidebar
+    if (closeIcon && overlay) {
+        closeIcon.addEventListener("click", handleClose);
+        overlay.addEventListener("click", handleClose);
+    }
+</script>

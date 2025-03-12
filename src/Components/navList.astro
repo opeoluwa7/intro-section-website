@@ -1,0 +1,53 @@
+---
+import Dropdown from "../Components/dropdown.astro";
+import IconLink from "../Components/iconLinks.astro";
+import ArrowDown from "../assets/icon-arrow-down.svg";
+import ArrowUp from "../assets/icon-arrow-up.svg";
+import Todo from "../assets/icon-todo.svg";
+import Calendar from "../assets/icon-calendar.svg";
+import Reminders from "../assets/icon-reminders.svg";
+import Planning from "../assets/icon-planning.svg";
+
+
+interface Props {
+    className: string;
+}
+
+const { className } = Astro.props;
+---
+
+<ul class={className}>
+    <Dropdown
+        imgClass1="img img1 block"
+        imgClass2="hidden img img2"
+        btnText="Features"
+        src1={ArrowDown.src}
+        src2={ArrowUp.src}
+        alt="open dropdown"
+    >
+        <IconLink src={Todo.src} text="Todo List" alt="todo icon" />
+        <IconLink src={Calendar.src} text="Calendar" alt="calendar icon" />
+        <IconLink src={Reminders.src} text="Reminders" alt="reminders icon" />
+        <IconLink src={Planning.src} text="Planning" alt="planning icon" />
+    </Dropdown>
+
+    <Dropdown
+        imgClass1="img img1"
+        imgClass2="hidden img img2"
+        btnText="Company"
+        src1={ArrowDown.src}
+        src2={ArrowUp.src}
+        alt="open dropdown"
+    >
+        <div class="flex flex-col gap-4">
+            <a href="#">History</a>
+            <a href="#">Our Team</a>
+            <a href="#">Blog</a>
+        </div>
+    </Dropdown>
+
+    <li><a href="#">Careers</a></li>
+    <li><a href="#">About</a></li>
+
+   
+</ul>
